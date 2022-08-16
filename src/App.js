@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+
+const TodoList = () => {
+  const items = ["Learn React", "Build Awesome App"];
+  return (
+    <ul>
+      <li>{items[0]}</li>
+      <li>{items[1]}</li>
+    </ul>
+  );
+};
+
+const AppHeader = () => {
+  return <h1>My Todo List</h1>;
+};
+
+const SearchPanel = () => {
+  return <input placeholder="search"></input>;
+};
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <span>{new Date().toString()}</span>
+      <AppHeader />
+      <SearchPanel />
+      <TodoList />
     </div>
   );
 }
