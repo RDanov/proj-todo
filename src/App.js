@@ -1,30 +1,23 @@
 import "./App.css";
-
-const TodoList = () => {
-  const items = ["Learn React", "Build Awesome App"];
-  return (
-    <ul>
-      <li>{items[0]}</li>
-      <li>{items[1]}</li>
-    </ul>
-  );
-};
-
-const AppHeader = () => {
-  return <h1>My Todo List</h1>;
-};
-
-const SearchPanel = () => {
-  return <input placeholder="search"></input>;
-};
+import AppHeader from "./components/app-header";
+import SearchPanel from "./components/search-panel";
+import TodoList from "./components/todo-list";
+import ItemStatusFilter from "./components/item-status-filter";
 
 function App() {
+  const todoData = [
+    { label: "Drink Coffee", important: false, id: 1 },
+    { label: "Learn React", important: true, id: 2 },
+    { label: "Create React App", important: false, id: 3 },
+  ];
+
   return (
     <div className="App">
       <span>{new Date().toString()}</span>
       <AppHeader />
       <SearchPanel />
-      <TodoList />
+      <ItemStatusFilter />
+      <TodoList todos={todoData} />
     </div>
   );
 }
