@@ -7,7 +7,7 @@ import ItemStatusFilter from "./components/item-status-filter";
 function App() {
   const todoData = [
     { label: "Drink Coffee", important: false, id: 1 },
-    { label: "Learn React", important: true, id: 2 },
+    { label: "Learn React", important: false, id: 2 },
     { label: "Create React App", important: false, id: 3 },
   ];
 
