@@ -22,6 +22,7 @@ class App extends Component {
       important: false,
       done: false,
       id: this.maxID++,
+      visible: true,
     };
   }
 
@@ -38,7 +39,6 @@ class App extends Component {
   };
   addItem = (text) => {
     this.setState(({ todoData }) => {
-      console.log(text);
       const newItem = this.createTodoItem(text);
       const old = todoData;
       console.log([...old, newItem]);
@@ -46,6 +46,21 @@ class App extends Component {
     });
   };
 
+  filterBySearch = (text) => {
+    this.setState(({ todoData }) => {
+      console.log(text);
+
+      const newArray = todoData;
+      newArray.forEach((el) => {
+        el.label.toLowerCase().includes(text.toLowerCase())
+          ? (el.visible = true)
+          : (el.visible = false);
+      });
+
+      console.log(newArray);
+      return todoData;
+    });
+  };
   toggleProperty = (array, id, propName) => {
     const index = array.findIndex((el) => el.id === id);
     const oldItem = array[index];
@@ -79,7 +94,7 @@ class App extends Component {
       <div className="App">
         <span>{new Date().toString()}</span>
         <AppHeader toDo={todoCount} done={doneCount} />
-        <SearchPanel />
+        <SearchPanel todos={todoData} filterBySearch={this.filterBySearch} />
         <ItemStatusFilter />
         <TodoList
           todos={todoData}
