@@ -14,6 +14,7 @@ class App extends Component {
       this.createTodoItem("Learn React"),
       this.createTodoItem("Create React App"),
     ],
+    filter: "all",
   };
 
   createTodoItem(label) {
@@ -48,19 +49,38 @@ class App extends Component {
 
   filterBySearch = (text) => {
     this.setState(({ todoData }) => {
-      console.log(text);
-
-      const newArray = todoData;
-      newArray.forEach((el) => {
+      todoData.forEach((el) => {
         el.label.toLowerCase().includes(text.toLowerCase())
           ? (el.visible = true)
           : (el.visible = false);
       });
 
-      console.log(newArray);
       return todoData;
     });
   };
+
+  filterByPanel = (name) => {
+    this.setState({ filter: name });
+    console.log(this.state.filter);
+    this.setState(({ todoData }) => {
+      console.log(todoData);
+      switch (name) {
+        case "all":
+          return todoData.forEach((el) => (el.visible = true));
+        case "active":
+          return todoData.forEach((el) => {
+            !el.done ? (el.visible = true) : (el.visible = false);
+          });
+        case "done":
+          return todoData.forEach((el) => {
+            el.done ? (el.visible = true) : (el.visible = false);
+          });
+        default:
+          return todoData;
+      }
+    });
+  };
+
   toggleProperty = (array, id, propName) => {
     const index = array.findIndex((el) => el.id === id);
     const oldItem = array[index];
@@ -95,7 +115,10 @@ class App extends Component {
         <span>{new Date().toString()}</span>
         <AppHeader toDo={todoCount} done={doneCount} />
         <SearchPanel todos={todoData} filterBySearch={this.filterBySearch} />
-        <ItemStatusFilter />
+        <ItemStatusFilter
+          filterByPanel={this.filterByPanel}
+          filter={this.state.filter}
+        />
         <TodoList
           todos={todoData}
           onDelete={this.deleteItem}
